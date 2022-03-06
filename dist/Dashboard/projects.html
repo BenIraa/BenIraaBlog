@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>BenIraa-Admin-Dasboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        /* Style the form - display items horizontally */
+.form-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+/* Add some margins for each label */
+.form-inline label {
+  margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.form-inline input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+/* Style the submit button */
+.form-inline button {
+  padding: 10px 20px;
+  background-color: darkgoldenrod;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.form-inline button:hover {
+  background-color: darkgoldenrod;
+}
+
+/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+@media (max-width: 800px) {
+  .form-inline input {
+    margin: 10px 0;
+  }
+
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        
+        .row.content {
+            height: 550px
+        }
+        /* Set gray background color and 100% height */
+        
+        .sidenav {
+            background-color: #221d1d;
+            height: 150%;
+        }
+        /* On small screens, set height to 'auto' for the grid */
+        
+        @media screen and (max-width: 767px) {
+            .row.content {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse visible-xs">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+                <a class="navbar-brand " href="../index.html"><img src="../images/Ben iraa without bg.png " style="width: 120px; height: 50px; margin-top: -12px;"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="Users.html">Add User</a></li>
+                    <li><a href="">Hire Me</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="#">About Page</a></li>
+                    <li><a href="#">Education Page</a></li>
+                    <li><a href="contactpage.html">Contact Page</a></li>
+                    <li><a href="">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3 sidenav hidden-xs">
+                <img src="../images/Ben iraa without bg.png " style="width: 120px; height: 50px;">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="Users.html">Add User</a></li>
+                    <li><a href="">Hire Me</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="#">About Page</a></li>
+                    <li><a href="#">Education Page</a></li>
+                    <li><a href="contactpage.html">Contact Page</a></li>
+                    <li><a href="">Sign out</a></li>
+                </ul><br>
+            </div>
+            <br>
+
+            <div class="col-sm-9">
+                <div class="well">
+                    <h4 class="Font-mono">Dashboard Overview</h4>
+                    <p class="font-mono">Welcome BenIraa, View your project and add some or delete old!</p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="well">
+                            <form class="form-inline">
+                                <label for="firstname">title:</label>
+                                <input type="text" id="title" placeholder="Enter title" name="title">
+                                <label for="lastname">discription:</label>
+                                <input type="text" id="discription" placeholder="Enter discription" name="discription">
+                                <label for="picture">picture:</label>
+                                <input type="file" id="picture" name="picture">
+                                
+                                
+                                <button type="submit">Add Projects</button>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="well">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>title</th>
+                                        <th>discription</th>
+                                        <th>image</th>
+                                        <th>update</th>
+                                        <th>delete</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="Contact ID"></td>
+                                        <td data-label="Power"></td>
+                                        <td data-label="Expiration"></td>
+                                        <td data-label="Value"></td>
+                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
+                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
