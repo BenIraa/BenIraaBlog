@@ -1,5 +1,5 @@
 import { initializeApp} from 'firebase/app'
-import { getFirestore, collection, getDocs, 
+import { getFirestore, collection, 
     onSnapshot, addDoc, deleteDoc, doc, 
 } from 'firebase/firestore'
 import { 
@@ -135,4 +135,5 @@ onAuthStateChanged(auth, (user) => {
 })
 
 // Unsb for the user / LOG OUT
+
 
