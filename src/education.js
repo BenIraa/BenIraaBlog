@@ -13,8 +13,6 @@ db.collection("education")
                     <h6 class="text-white">${education.data.courses}</h6>
                 </p>
             </div>
-        
-
         </div>
    
           `
