@@ -41,24 +41,7 @@ const firebaseConfig = {
       
 
   })
-// Add Contact Form
 
-  const addContactForm = document.querySelector('.add')
-  addContactForm.addEventListener('submit', (e) =>{
-      e.preventDefault()
-      addDoc(colRef, {
-          firstname: addContactForm.firstname.value,
-          lastname: addContactForm.lastname.value,
-          email: addContactForm.email.value,
-          message: addContactForm.message.value,
-          phone: addContactForm.phone.value,
-      })
-      .then(() => {
-          addContactForm.reset() // Add new doc and stay on the same page
-          alert("Data sent succesfully!")
-      })
-
-  })
   
 
   const LoginForm = document.querySelector('.Login')
@@ -77,20 +60,7 @@ const firebaseConfig = {
       })
 })
 
-  //deleting documents
-  const deleteBookForm = document.querySelector('.delete')
-  deleteBookForm.addEventListener('submit', (e) =>{
-      e.preventDefault()
-
-      const docRef = doc(db, 'books', deleteBookForm.id.value)
-
-      deleteDoc(docRef)
-    .then(() =>{
-        deleteBookForm.reset()
-    })
-
-  })
-
+  
 //   Adding User!
 
 const SignUpForm = document.querySelector('.SignUp')

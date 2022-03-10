@@ -1,5 +1,5 @@
 db.collection("ContactPage")
-//   .orderBy("timestamp", "desc")
+//.orderBy("timestamp", "desc")
   .onSnapshot((contact) => {
     const data = contact.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
     console.log(data)
@@ -25,10 +25,10 @@ db.collection("ContactPage")
               <td data-label="Power">${contact.data.firstname}</td>
               <td data-label="Expiration">${contact.data.lastname}</td>
               <td data-label="Value">${contact.data.email}</td>
-              <td data-label="Value">${contact.data.telephone}</td>
+              <td data-label="Value">${contact.data.phone}</td>
               <td data-label="Value">${contact.data.message}</td>
-              <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
-              <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
+              <td data-lebel="trash"><button  ><i class="fa fa-pencil-square-o"></i></button></td>
+              <td data-lebel="trash"><button class="delete" ><i class="fa fa-trash"></i></button></td>
           </tr>
           
       </tbody>
@@ -38,6 +38,42 @@ db.collection("ContactPage")
     `
     )
   })
+  
+// Add Contact Form
+
+const addContactForm = document.querySelector('.add')
+addContactForm.addEventListener('submit', (e) =>{
+    e.preventDefault()
+    addDoc(colRef, {
+        firstname: addContactForm.firstname.value,
+        lastname: addContactForm.lastname.value,
+        email: addContactForm.email.value,
+        message: addContactForm.message.value,
+        phone: addContactForm.phone.value,
+    })
+    .then(() => {
+        addContactForm.reset() // Add new doc and stay on the same page
+        alert("Data sent succesfully!")
+    })
+
+})
+
+//deleting contact
+const deleteContactForm = document.querySelector('.delete')
+deleteContactForm.addEventListener('submit', (e) =>{
+    e.preventDefault()
+
+    const docRef = doc(db, 'ContactPage', deleteContactForm.id.value)
+
+    deleteDoc(docRef)
+  .then(() =>{
+      deleteContactForm.reset()
+  })
+  .catch((err) =>{
+      console.log(err)
+  })
+
+})
 
 
 
