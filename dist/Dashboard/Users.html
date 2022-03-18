@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
     <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -141,6 +153,15 @@
                                 <input type="email" id="email" placeholder="Enter email" name="email">
                                 <label for="telphone">telephone:</label>
                                 <input type="text" id="telephone" placeholder="Enter telephone" name="telephone">
+                                <label for="role">Role:</label>
+                                <div class="p-4 mr-4 ml-4">
+                                <select style="padding: 12px;" name="role" id="role">
+                                    
+                                    <option class="" value="user">User</option>
+                                    <option class="" value="admin " >Admin</option>
+                                   
+                                  </select>
+                                </div>
                                 <label for="pwd">Password:</label>
                                 <input type="password" id="pwd" placeholder="Enter password" name="pswd">
                                 
@@ -152,33 +173,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="well">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>FirstName</th>
-                                        <th>LastName</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>password</th>
-                                        <th>Update</th>
-                                        <th>delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="Contact ID"></td>
-                                        <td data-label="Power"></td>
-                                        <td data-label="Expiration"></td>
-                                        <td data-label="Value"></td>
-                                        <td data-label="Value"></td>
-                                        <td data-label="Value"></td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
+                           
                         </div>
                     </div>
 
@@ -186,6 +181,9 @@
             </div>
         </div>
     </div>
+    
+
+<script src="../../src/users.js"></script>
 <script src="config.js"></script>
 <script src="bundle.js"></script>
 </body>

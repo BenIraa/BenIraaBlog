@@ -105,48 +105,7 @@ deleteContactForm.addEventListener('submit', (e) =>{
 
 
 
-// fetch('http://localhost:8000/api/v1/users',{mode: "no-cors"})
-// .then((data) => {
-//     console.log(data)
-//     return data;
-// }).then((completedata) => {
-    
-//     // console.log(completedata[2].title);
-//     // document.getElementById('root'). 
-//     // innerHTML=completedata[2].title;
-//     let data1 = "";
-//     completedata.map((values) =>{
-//         data1+= ` 
-//         <div class="well">
-//         <table class="table">
-//         <thead>
-//             <tr>
-//                 <th>Contact ID</th>
-//                 <th>FirstName</th>
-//                 <th>LastName</th>
-//                 <th>Email</th>
-//                 <th>Phone</th>
-//                 <th>Contact/Mesage</th>
-//                 <th></th>
-//             </tr>
-//         </thead>
-//         <tbody>
-//             <tr>
-//                 <td data-label="Contact ID">${values.name}</td>
-//                 <td data-label="Power">${values.email}</td>
-//                 <td data-label="Expiration"></td>
-//                 <td data-label="Value"></td>
-//                 <td data-label="Value"></td>
-//             </tr>
-            
-//         </tbody>
-//     </table>
-//     </div>`
-//     });
-//     document.getElementById("well").innerHTML=data1;
-// }).catch((err) => {
-//     console.log(err)
-// });
+
 
 
         
