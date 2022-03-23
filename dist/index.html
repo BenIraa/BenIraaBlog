@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 
@@ -233,7 +234,7 @@ span.psw {
                     <div class="w-full  md:w-3/6 " >
                         <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:ring-pink-200 dark:focus:ring-pink-800">
                         <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                             Update CV
+                             Login
                         </span>
                       </button>
                     </div>
@@ -259,13 +260,13 @@ span.psw {
     </div>
 
     <div class="container-modal">
-      <form class="Login">
+      <form id="login" class="login">
       <label for="email"><b>Email</b></label>
-      <input type="password" placeholder="Enter Email" name="password" required>
+      <input type="text" id="email" placeholder="Enter Email" name="email" required>
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <input type="password" id="password" placeholder="Enter Password" name="password" required>
         
-      <button type="submit" style="padding: 4px; background-color: #04AA6D; width: 100px;">Login</button>
+      <button type="submit" id="login" style="padding: 4px; background-color: #04AA6D; width: 100px;">Login</button>
     </form>
     </div>
 
@@ -349,10 +350,34 @@ span.psw {
 
 <div class="flex flex-wrap p-4 mt-6 bg-gradient-to-b from-stone-100 to-stone-200 text-center ">
   <div class="w-full md:w-1/4">
-    
+    <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+      <h5 class="text-uppercase mb-4">About company</h5>
+
+      <p>
+        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+        voluptatum deleniti atque corrupti.
+      </p>
+
+      <p>
+        Blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas
+        molestias.
+      </p>
+
+      <div class="mt-4">
+        <!-- Facebook -->
+        <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-facebook-f"></i></a>
+        <!-- Dribbble -->
+        <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-dribbble"></i></a>
+        <!-- Twitter -->
+        <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-twitter"></i></a>
+        <!-- Google + -->
+        <a type="button" class="btn btn-floating btn-warning btn-lg"><i class="fab fa-google-plus-g"></i></a>
+        <!-- Linkedin -->
+      </div>
+    </div>
    
   <div class="w-full md:w-1/4">
-
+  
   </div>
   <div class="w-full md:w-1/4">
     
@@ -364,7 +389,6 @@ span.psw {
 
  
 
-<script src="bundle.js"></script>
 
 </body>
 
@@ -404,3 +428,40 @@ span.psw {
       }
   }
   </script>
+
+
+<script>
+  
+  const form = document.querySelector('#login');
+  form.addEventListener('submit', async(e) => {
+        e.preventDefault()
+        try {
+            const resp = await fetch('http://localhost:9000/api/v1/users/login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: form.email.value,
+                    password: form.password.value
+                })
+            })
+            const data = await resp.json()
+            console.log(data.token)
+            
+
+      if(data.data.user.role==="admin"){
+        console.log(true)
+         location.href='./Dashboard/index.html';
+      }else{
+        console.log(false)
+         location.href='./Dashboard/index.html';
+      }
+        
+        } catch (error) { console.log(error)
+        }
+    })
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
