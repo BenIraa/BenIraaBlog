@@ -113,7 +113,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="index.html">Dashboard</a></li>
                     <li><a href="Users.html">Add User</a></li>
-                    <li><a href="">Hire Me</a></li>
+                    <li><a href="Subscribers.html">Subscribers</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
@@ -131,7 +131,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="well">
-                            <form class="form-inline">
+                            <form class="form-inline"  enctype="multipart/form-data">
                                 <label for="firstname">title:</label>
                                 <input type="text" id="title" placeholder="Enter title" name="title">
                                 <label for="lastname">discription:</label>
@@ -140,38 +140,15 @@
                                 <input type="file" id="picture" name="picture">
                                 
                                 
-                                <button type="submit">Add Projects</button>
+                                <button id="addBlog" name="addBlog" type="submit">Add Projects</button>
                               </form>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="well">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>title</th>
-                                        <th>discription</th>
-                                        <th>image</th>
-                                        <th>update</th>
-                                        <th>delete</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="Contact ID"></td>
-                                        <td data-label="Power"></td>
-                                        <td data-label="Expiration"></td>
-                                        <td data-label="Value"></td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
+                        <div id="well" class="well">
+                            <!-- data fetched -->
                         </div>
                     </div>
 
@@ -193,7 +170,36 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
     },
 }).then((data)=>{return data.json();
 }).then((values)=>{
-    document.getElementById("")
+    console.log(values.data.blog)
+    document.getElementById("well").innerHTML = values.data.blog.map((values)=> 
+    `
+                             <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>title</th>
+                                        <th>discription</th>
+                                        <th>image</th>
+                                        <th>date</th>
+                                        <th>update</th>
+                                        <th>delete</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="ID"></td>
+                                        <td data-label="Power">${values.title}</td>
+                                        <td data-label="Expiration">${values.desc}</td>
+                                        <td data-label="Value">${values.picture}</td>
+                                        <td data-label="Value">${values.createdAt}</td>
+                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
+                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+    `)
 })
 
 </script>

@@ -327,7 +327,37 @@ fetch('http://localhost:9000/api/v1/blogs',{
         
   `
   ).join("")
-})
-            
-            
+})            
+</script>
+<script>
+const CreateBlog = async (event) => {
+  event.preventDefault()
+
+  try {
+    const formData = new FormData()
+    formData.append("title", document.getElementById("title").value)
+    formData.append("picture",document.getElementById("picture").files[0])
+    formData.append("desc", tinymce.activeEditor.getContent())
+
+    console.log("hello", document.getElementById("picture").files[0])
+    const response = await fetch(
+     "http://localhost:9000/api/v1/blogs",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("token")).token
+          }`,
+        },
+        body: formData,
+      }
+    )
+    const data = await response.json()
+    const { error, message, status } = data
+    console.log("data", data)
+    console.log(error, message, status)
+  } catch (error) {
+    console.log(error.stack)
+  }
+}
 </script>

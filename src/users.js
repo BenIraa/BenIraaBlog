@@ -1,10 +1,12 @@
+
+
 fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
           'Authorization': 
-      'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODAyODg3MiwiZXhwIjoxNjQ4MTE1MjcyfQ.mNdUGGLG328bbA61I7sBqo2PrKk508S14J4Px_YZQT0'}})
+      'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI'}})
       .then((data)=>{return data.json();
       }).then((values)=>{
          document.getElementById("well").innerHTML = values.map((values)=>
@@ -12,7 +14,7 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
            <table class="table">
            <thead>
                <tr>
-                   <th>ID</th>
+                  
                    <th>FirstName</th>
                    <th>LastName</th>
                    <th>Email</th>
@@ -25,15 +27,15 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
            </thead>
            <tbody>
                <tr>
-                   <td data-label="Contact ID">${values._id}</td>
+                   
                    <td data-label="Power">${values.firstname}</td>
                    <td data-label="Expiration">${values.lastname}</td>
                    <td data-label="Value">${values.email}</td>
                    <td data-label="Value">${values.telephone}</td>
                    <td data-label="Value">${values.createdAt}</td>
                    <td data-label="Value">${values.role}</td>
-                   <td data-lebel="trash"><button  ><i class="fa fa-pencil-square-o"></i></button></td>
-                   <td data-lebel="trash"><button class="delete" ><i class="fa fa-trash"></i></button></td>
+                   <td data-lebel="trash"><a href="updateUser.html#${values._id}"><i class="fa fa-pencil-square-o"></i></a></td>
+                   <td data-lebel="trash"><a href=""><i class="fa fa-trash"></i></a></td>
                </tr>
                
            </tbody>
@@ -59,7 +61,7 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
 
          }
          console.log(body)
-         await fetch("http://localhost:9000/api/v1/users/signup", {
+         await fetch("https://beniraabrand.herokuapp.com/api/v1/users/signup", {
            method: "POST",
            headers: { "Content-Type": "application/json" },
            body: JSON.stringify(body),

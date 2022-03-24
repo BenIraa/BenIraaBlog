@@ -1,4 +1,3 @@
-
 function isLoginedIn()
 {
     let token = localStorage.getItem("token");

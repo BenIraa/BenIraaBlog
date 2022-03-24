@@ -122,19 +122,19 @@
                         <h3 class="sec2frmtitle">Want to Know More?? Drop Us a Mail</h3>
                         
                         <!-- Form contact Page -->
-                        <form class="add">
+                        <form id="contactMe" class="contactMe">
                             <div class="clearfix">
-                                <input class="col2 first" type="text" name="firstname" placeholder="FirstName">
-                                <input class="col2 last" type="text" name="lastname" placeholder="LastName">
+                                <input class="col2 first" type="text" name="firstname" required="" placeholder="FirstName">
+                                <input class="col2 last" type="text" name="lastname" required="" placeholder="LastName">
                             </div>
                             <div class="clearfix">
-                                <input class="col2 first" type="email" name="email" placeholder="Email">
-                                <input class="col2 last" type="text" name="phone" placeholder="Contact Number">
+                                <input class="col2 first" type="email" name="email" required="" placeholder="Email">
+                                <input class="col2 last" type="text" name="telephone" required="" placeholder="Your Phone Number">
                             </div>
                             <div class="clearfix">
-                                <textarea type="textarea" name="message" id="" cols="30" rows="7"></textarea>
+                                <textarea type="textarea" name="contactUs" required="" cols="30" rows="7"></textarea>
                             </div>
-                            <button style="margin-top: 6px; padding: 7px;">Send </button>
+                            <button style="margin-top:  6px; width: 100%;background-color: darkgoldenrod; padding: 7px;">Send </button>
                         </form>
 
                         <!-- End of form -->
@@ -145,7 +145,44 @@
 
         </div>
     </div>
-    <script src="bundle.js"></script>
+    <!-- <script src="bundle.js"></script> -->
 </body>
-
 </html>
+
+
+<script>
+    const signup_Form = document.getElementById("contactMe")
+       signup_Form.addEventListener("submit", async (event) => {
+         event.preventDefault()
+         // CREATE USER
+         const body = {
+           firstname: signup_Form.firstname.value,
+           lastname: signup_Form.lastname.value,
+           email: signup_Form.email.value,
+           telephone: signup_Form.telephone.value,
+           contactUs: signup_Form.contactUs.value,
+         
+
+         }
+         console.log(body)
+         await fetch("http://localhost:9000/api/v1/contactUs", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify(body),
+         })
+           .then((res) => res.json())
+           .then((json) => {
+             const { error, message, status } = json
+             console.log(error, message, status)
+             document.getElementById("error").innerHTML = message
+             document.getElementById("error").style.color = "red"
+           })
+         // CLEAR FORM
+         signup_Form.firstname.value = ""
+         signup_Form.lastname.value = ""
+         signup_Form.email.value = ""
+         signup_Form.password.value = ""
+         signup_Form.telephone.value = ""
+         signup_Form.contactUs.value = ""
+       })
+</script>
