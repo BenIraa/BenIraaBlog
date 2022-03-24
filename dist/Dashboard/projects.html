@@ -179,7 +179,21 @@
             </div>
         </div>
     </div>
-<script src="script.js"></script>
+
 </body>
 
 </html>
+<script>
+
+fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+}).then((data)=>{return data.json();
+}).then((values)=>{
+    document.getElementById("")
+})
+
+</script>

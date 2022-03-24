@@ -1,4 +1,4 @@
-fetch('https://localhost:9000/api/v1/users',  {
+fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -17,7 +17,7 @@ fetch('https://localhost:9000/api/v1/users',  {
                    <th>LastName</th>
                    <th>Email</th>
                    <th>Phone</th>
-                   <th>Password</th>
+                   <th>Date</th>
                    <th>Role</th>
                    <th>Update</th>
                    <th>delete</th>
@@ -30,7 +30,7 @@ fetch('https://localhost:9000/api/v1/users',  {
                    <td data-label="Expiration">${values.lastname}</td>
                    <td data-label="Value">${values.email}</td>
                    <td data-label="Value">${values.telephone}</td>
-                   <td data-label="Value">${values.password}</td>
+                   <td data-label="Value">${values.createdAt}</td>
                    <td data-label="Value">${values.role}</td>
                    <td data-lebel="trash"><button  ><i class="fa fa-pencil-square-o"></i></button></td>
                    <td data-lebel="trash"><button class="delete" ><i class="fa fa-trash"></i></button></td>
@@ -45,34 +45,40 @@ fetch('https://localhost:9000/api/v1/users',  {
        })
 
 
-        
+       const signup_Form = document.getElementById("addUser")
+       signup_Form.addEventListener("submit", async (event) => {
+         event.preventDefault()
+         // CREATE USER
+         const body = {
+           firstname: signup_Form.firstname.value,
+           lastname: signup_Form.lastname.value,
+           email: signup_Form.email.value,
+           telephone: signup_Form.telephone.value,
+           role: signup_Form.role.value,
+           password: signup_Form.password.value
 
-
-                
-            
-            
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         }
+         console.log(body)
+         await fetch("http://localhost:9000/api/v1/users/signup", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify(body),
+         })
+           .then((res) => res.json())
+           .then((json) => {
+             const { error, message, status } = json
+             console.log(error, message, status)
+            //  document.getElementById("error").innerHTML = message
+            //  document.getElementById("error").style.color = "red"
+           })
+         // CLEAR FORM
+         signup_Form.firstname.value = ""
+         signup_Form.lastname.value = ""
+         signup_Form.email.value = ""
+         signup_Form.password.value = ""
+         signup_Form.telephone.value = ""
+         signup_Form.role.value = ""
+       })
 
 
 
