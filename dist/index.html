@@ -456,11 +456,11 @@ span.psw {
 </div>
 
 <br><br><br>
-<span class="servises text-yellow-600 p-32  font-mono text-l ">Our Servise</span>
+<span class="servises text-yellow-600 p-32 font-mono text-l ">Our Servise</span>
 
 
 
-<section class="cards-wrapper bg-gray-400">
+<section class="cards-wrapper mt-12 bg-gray-400">
   <div class="card-grid-space">
     
     <a class="card" href="" style="--bg-img: url(https://www.fileeagle.com/data/2021/12/Adobe-XD.jpg)">
@@ -522,7 +522,7 @@ span.psw {
           <div class="bg-white rounded-lg">
               <div class="flex flex-wrap justify-between md:flex-row">
                 <form id="subscribe">
-                  <input type="email" class="m-1 p-2 appearance-none text-gray-700 text-sm focus:outline-none" name="email" placeholder="Enter your email">
+                  <input type="email" class="m-1 p-2 appearance-none text-gray-700 text-sm focus:outline-none" name="email" required="" placeholder="Enter your email">
                   <button class="w-full m-1 p-2 text-sm bg-gray-800 rounded-lg font-semibold uppercase lg:w-auto">subscribe</button>
                 </form>
               </div>
@@ -593,7 +593,7 @@ span.psw {
   form.addEventListener('submit', async(e) => {
         e.preventDefault()
         try {
-            const resp = await fetch('http://localhost:9000/api/v1/users/login', {
+            const resp = await fetch('https://beniraabrand.herokuapp.comapi/v1/users/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

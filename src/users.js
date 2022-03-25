@@ -35,13 +35,13 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
                    <td data-label="Value">${values.createdAt}</td>
                    <td data-label="Value">${values.role}</td>
                    <td data-lebel="trash"><a href="updateUser.html#${values._id}"><i class="fa fa-pencil-square-o"></i></a></td>
-                   <td data-lebel="trash"><a href=""><i class="fa fa-trash"></i></a></td>
+                   <td data-lebel="trash"><a href="deleteUser.html#${values._id}"><i class="fa fa-trash"></i></a></td>
                </tr>
                
            </tbody>
        </table>
            `
-         )
+         ).join("")
        }).catch((err) => {
          console.log(err);
        })

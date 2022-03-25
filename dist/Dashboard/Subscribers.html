@@ -182,13 +182,14 @@
                    
                    <td data-label="Value">${values.email}</td>
                    <td data-label="Value">${values.createdAt}</td>
-                   <td data-lebel="trash"><a href=""><i class="fa fa-trash"></i></a></td>
+                   <td data-lebel="trash"><a href="deleteSubuscribers.html#${values._id}"><i class="fa fa-trash"></i></a></td>
+
                </tr>
                
            </tbody>
        </table>
            `
-         )
+         ).join("")
        }).catch((err) => {
          console.log(err);
        })

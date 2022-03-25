@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
@@ -112,14 +113,14 @@
                 <div class="col2 column2 last">
                     <div class="sec2innercont">
                         <div class="sec2addr">
-                            <p>IRADUKUNDA Benjamin </p>
-                            <p><span class="collig">Phone :</span> +250 781019415</p>
-                            <p><span class="collig">Email :</span> beniraa50@gmail.com</p>
-                            <p><span class="collig">Whatsapp :</span> +250 71019415</p>
+                            <p class="font-serif">IRADUKUNDA Benjamin </p>
+                            <p><span class="collig font-serif">Phone :</span class="collig font-serif text-sm"> +250 781019415</p>
+                            <p><span class="collig font-serif">Email :</span class="collig font-serif"> beniraa50@gmail.com</p>
+                            <p><span class="collig font-serif">Whatsapp :</span class="collig font-serif"> +250 71019415</p>
                         </div>
                     </div>
                     <div class="sec2contactform">
-                        <h3 class="sec2frmtitle">Want to Know More?? Drop Us a Mail</h3>
+                        <h3 class="sec2frmtitle font-serif">Want to Know More?? Drop Us a Mail</h3>
                         
                         <!-- Form contact Page -->
                         <form id="contactMe" class="contactMe">
@@ -132,7 +133,7 @@
                                 <input class="col2 last" type="text" name="telephone" required="" placeholder="Your Phone Number">
                             </div>
                             <div class="clearfix">
-                                <textarea type="textarea" name="contactUs" required="" cols="30" rows="7"></textarea>
+                                <textarea type="textarea" name="contactUs" placeholder="Please fell free to tell Us Your Idea or Message " required="" cols="20" rows="4"></textarea>
                             </div>
                             <button style="margin-top:  6px; width: 100%;background-color: darkgoldenrod; padding: 7px;">Send </button>
                         </form>
@@ -146,6 +147,41 @@
         </div>
     </div>
     <!-- <script src="bundle.js"></script> -->
+
+    <footer  class="flex justify-center mt-32  px-4 text-gray-100 bg-gray-400">
+        <div class="container py-6">
+            <h1 class="text-center text-lg font-bold lg:text-xl">
+                
+            </h1>
+      
+            <div class="flex justify-center mt-6">
+                <div class="bg-white rounded-lg">
+                    <div class="flex flex-wrap justify-between md:flex-row">
+                      <form id="subscribe">
+                        <input type="email" class="m-1 p-2 appearance-none text-gray-700 text-sm focus:outline-none" name="email" required="" placeholder="Enter your email">
+                        <button class="w-full m-1 p-2 text-sm bg-gray-800 rounded-lg font-semibold uppercase lg:w-auto">subscribe</button>
+                      </form>
+                    </div>
+                </div>
+            </div>
+      
+            <hr class="h-px mt-6 bg-gray-700 border-none">
+      
+            <div class="flex flex-col items-center justify-between mt-6 md:flex-row">
+                <div>
+                    <a href="index.html" class="text-xl font-bold">BenIraa</a>
+                </div>
+                <div class="flex mt-4 md:m-0">
+                    <div class="-mx-4">
+                      <a href="/dist/about.html" class="px-4 text-sm">About</a>
+                      <a href="/dist/projects.html" class="px-4 text-sm">Blog</a>
+                      <a href="/dist/about.html" class="px-4 text-sm">News</a>
+                      <a href="/dist/contact.html" class="px-4 text-sm">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </footer>
 </body>
 </html>
 
@@ -186,3 +222,38 @@
          signup_Form.contactUs.value = ""
        })
 </script>
+
+<script>
+    const signup_Form = document.getElementById("subscribe")
+       signup_Form.addEventListener("submit", async (event) => {
+         event.preventDefault()
+         // CREATE USER
+         const body = {
+           email: signup_Form.email.value,
+         }
+         console.log(body)
+         await fetch("https://beniraabrand.herokuapp.com/api/v1/subscribers", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify(body),
+         })
+           .then((res) => res.json())
+           .then((json) => {
+             const { error, message, status } = json
+             console.log(error, message, status)
+            //  document.getElementById("error").innerHTML = message
+            //  document.getElementById("error").style.color = "red"
+           })
+         // CLEAR FORM
+         signup_Form.email.value = ""
+        Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Thank Your For Subscribing Our news Letter!',
+        showConfirmButton: false,
+        timer: 1500
+        })
+  
+       });
+       
+  </script>

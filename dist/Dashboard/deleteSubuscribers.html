@@ -8,12 +8,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
     <!-- Add icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <style>
+        
         /* Style the form - display items horizontally */
 .form-inline {
   display: flex;
@@ -95,7 +108,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">Dashboard</a></li>
                     <li><a href="Users.html">Add User</a></li>
-                    <li><a href="">Hire Me</a></li>
+                    <li><a href="Subscribers.html">Subscribers</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
@@ -126,29 +139,27 @@
             <div class="col-sm-9">
                 <div class="well">
                     <h4 class="Font-mono">Dashboard Overview</h4>
-                    <p class="font-mono">Welcome BenIraa, View your project and add some or delete old!</p>
+                    <p class="font-mono">Welcome BenIraa, View Subscribers On News Letter</p>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="well">
-                            <form class="form-inline"  enctype="multipart/form-data">
-                                <label for="firstname">title:</label>
-                                <input type="text" id="title" placeholder="Enter title" name="title">
-                                <label for="lastname">discription:</label>
-                                <input type="text" id="discription" placeholder="Enter discription" name="discription">
-                                <label for="picture">picture:</label>
-                                <input type="file" id="picture" name="picture">
+                            <form class="form-inline">
+                                
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" required="" name="email">
                                 
                                 
-                                <button id="addBlog" name="addBlog" type="submit">Add Projects</button>
+                                <button type="submit"  id="deleteSubuscriber" class="add_user_button">Delete Subscriber</button>
                               </form>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div id="well" class="well">
-                            <!-- data fetched -->
+                        <div id="well"  class="well">
+                          
+                 
                         </div>
                     </div>
 
@@ -156,50 +167,84 @@
             </div>
         </div>
     </div>
-
 </body>
-
 </html>
-<script>
 
-fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
+<script>
+    fetch('https://beniraabrand.herokuapp.com/api/v1/subscribers',  {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 
+      'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI'}})
+      .then((data)=>{return data.json();
+      }).then((values)=>{
+         document.getElementById("well").innerHTML = values.data.sub.map((values)=>
+          `
+           <table class="table">
+           <thead>
+               <tr>
+                   <th>Email</th>
+                   <th>Date Subscribed</th>
+                   <th>delete</th>
+               </tr>
+           </thead>
+           <tbody>
+               <tr>
+                   
+                   
+                   <td data-label="Value">${values.email}</td>
+                   <td data-label="Value">${values.createdAt}</td>
+                   <td data-lebel="trash"><a href=""><i class="fa fa-trash"></i></a></td>
+               </tr>
+               
+           </tbody>
+       </table>
+           `
+         ).join("")
+       }).catch((err) => {
+         console.log(err);
+       })
+</script>
+<script>
+    const id = location.hash.slice(1);
+    console.log(id);
+       
+        let email = document.getElementById("email");
+       
+    const activeToken = localStorage.getItem("jwtToken");
+    fetch(`https://beniraabrand.herokuapp.com/api/v1/subscribers/${id}`,{
     method: 'GET',
     headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-}).then((data)=>{return data.json();
-}).then((values)=>{
-    console.log(values.data.blog)
-    document.getElementById("well").innerHTML = values.data.blog.map((values)=> 
-    `
-                             <table class="table">
-                                <thead>
-                                    <tr>
-                                        
-                                        <th>title</th>
-                                        <th>discription</th>
-                                        <th>image</th>
-                                        <th>date</th>
-                                        <th>update</th>
-                                        <th>delete</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        
-                                        <td data-label="Power">${values.title}</td>
-                                        <td data-label="Expiration">${values.desc}</td>
-                                        <td data-label="Value">${values.picture}</td>
-                                        <td data-label="Value">${values.createdAt}</td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-    `).join("")
-})
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 
+  'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI'}})
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res.data.sub);
+        
+        email.value = res.data.sub.email;
+        
+        let buttonupdate = document.getElementById("deleteSubuscriber");
+        buttonupdate.addEventListener("click", (e) => {
+          e.preventDefault();
+          fetch(`https://beniraabrand.herokuapp.com/api/v1/subscribers/${id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': 
+              'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI',
+            },
+            body: JSON.stringify({
 
-</script>
+              email: document.getElementById("email").value,
+              
+            }),
+          });
+          alert("Subscriber Deleted successfully!");
+          location.href = "./Subscribers.html#";
+        });
+      });
+           </script>

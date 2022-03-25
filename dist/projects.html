@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
@@ -73,7 +74,7 @@ a {
   font-family: 'Heebo';
   --bg-filter-opacity: 0.5;
   background-image: linear-gradient(rgba(0,0,0,var(--bg-filter-opacity)),rgba(0,0,0,var(--bg-filter-opacity))), var(--bg-img);
-  height: 20em;
+  height: 16em;
   width: 15em;
   font-size: 1.5em;
   color: white;
@@ -280,27 +281,50 @@ a {
 
    
     <section id="cards" class="cards-wrapper">
-      <!-- <div class="card-grid-space">
-        
-        <a class="card" href="https://codetheweb.blog/2017/10/06/html-syntax/" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
-          <div>
-            <h1>HTML Syntax</h1>
-            <p>The syntax of a language is how it works. How to actually write it. Learn HTML syntax…</p>
-            <div class="date">6 Oct 2017</div>
-            <div class="tags">
-              <div class="tag">HTML</div>
-            </div>
-          </div>
-        </a>
-      </div> -->
+    <!-- data fetched -->
     </section>
+    <footer  class="flex justify-center mt-32  px-4 text-gray-100 bg-gray-400">
+      <div class="container py-6">
+          <h1 class="text-center text-lg font-bold lg:text-xl">
+              Join 31+ other and never miss <br> out on new tips, tutorials, and more.
+          </h1>
+    
+          <div class="flex justify-center mt-6">
+              <div class="bg-white rounded-lg">
+                  <div class="flex flex-wrap justify-between md:flex-row">
+                    <form id="subscribe">
+                      <input type="email" class="m-1 p-2 appearance-none text-gray-700 text-sm focus:outline-none" name="email" required="" placeholder="Enter your email">
+                      <button class="w-full m-1 p-2 text-sm bg-gray-800 rounded-lg font-semibold uppercase lg:w-auto">subscribe</button>
+                    </form>
+                  </div>
+              </div>
+          </div>
+    
+          <hr class="h-px mt-6 bg-gray-700 border-none">
+    
+          <div class="flex flex-col items-center justify-between mt-6 md:flex-row">
+              <div>
+                  <a href="index.html" class="text-xl font-bold">BenIraa</a>
+              </div>
+              <div class="flex mt-4 md:m-0">
+                  <div class="-mx-4">
+                    <a href="/dist/about.html" class="px-4 text-sm">About</a>
+                    <a href="/dist/projects.html" class="px-4 text-sm">Blog</a>
+                    <a href="/dist/about.html" class="px-4 text-sm">News</a>
+                    <a href="/dist/contact.html" class="px-4 text-sm">Contact</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </footer>
+    
 
   </body>
     </html>
 
 
 <script>
-fetch('http://localhost:9000/api/v1/blogs',{
+fetch('https://beniraabrand.herokuapp.com/api/v1/blogs',{
      method:'GET',
      headers: {
        'Accept': 'application/json',
@@ -360,4 +384,38 @@ const CreateBlog = async (event) => {
     console.log(error.stack)
   }
 }
+</script>
+<script>
+  const signup_Form = document.getElementById("subscribe")
+     signup_Form.addEventListener("submit", async (event) => {
+       event.preventDefault()
+       // CREATE USER
+       const body = {
+         email: signup_Form.email.value,
+       }
+       console.log(body)
+       await fetch("https://beniraabrand.herokuapp.com/api/v1/subscribers", {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify(body),
+       })
+         .then((res) => res.json())
+         .then((json) => {
+           const { error, message, status } = json
+           console.log(error, message, status)
+          //  document.getElementById("error").innerHTML = message
+          //  document.getElementById("error").style.color = "red"
+         })
+       // CLEAR FORM
+       signup_Form.email.value = ""
+      Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Thank Your For Subscribing Our news Letter!',
+      showConfirmButton: false,
+      timer: 1500
+      })
+
+     });
+     
 </script>

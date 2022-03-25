@@ -8,12 +8,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
     <!-- Add icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <style>
+        
         /* Style the form - display items horizontally */
 .form-inline {
   display: flex;
@@ -95,7 +108,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">Dashboard</a></li>
                     <li><a href="Users.html">Add User</a></li>
-                    <li><a href="">Hire Me</a></li>
+                    <li><a href="Subscribers.html">Subscribers</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
@@ -126,29 +139,36 @@
             <div class="col-sm-9">
                 <div class="well">
                     <h4 class="Font-mono">Dashboard Overview</h4>
-                    <p class="font-mono">Welcome BenIraa, View your project and add some or delete old!</p>
+                    <p class="font-mono">Welcome BenIraa, View User and add users!</p>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="well">
-                            <form class="form-inline"  enctype="multipart/form-data">
-                                <label for="firstname">title:</label>
-                                <input type="text" id="title" placeholder="Enter title" name="title">
-                                <label for="lastname">discription:</label>
-                                <input type="text" id="discription" placeholder="Enter discription" name="discription">
-                                <label for="picture">picture:</label>
-                                <input type="file" id="picture" name="picture">
+                            <form class="form-inline">
+                                <label for="firstname">firstname:</label>
+                                <input type="text" id="firstname" name="firstname" required="" placeholder="Enter firstname" >
+                                <label for="lastname">lastname:</label>
+                                <input type="text" id="lastname" placeholder="Enter lastname" required="" name="lastname">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" placeholder="Enter email" required="" name="email">
+                                <label for="telphone">telephone:</label>
+                                <input type="text" id="telephone" placeholder="Enter telephone" name="telephone">
+                                <label for="role">Role:</label>
+                                <input type="text" id="role" placeholder="Enter role " required="" name="role">
                                 
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" placeholder="Enter password" required="" name="password">
                                 
-                                <button id="addBlog" name="addBlog" type="submit">Add Projects</button>
+                                <button type="submit"  id="deleteUser" class="add_user_button">Delete User</button>
                               </form>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div id="well" class="well">
-                            <!-- data fetched -->
+                        <div id="well"  class="well">
+                          
+                 
                         </div>
                     </div>
 
@@ -156,50 +176,61 @@
             </div>
         </div>
     </div>
+    
+
+<script defer  src="../../src/users.js"></script>
 
 </body>
 
 </html>
-<script>
 
-fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
+<script>
+    const id = location.hash.slice(1);
+    console.log(id);
+        let firstname = document.getElementById("firstname");
+        let lastname = document.getElementById("lastname");
+        let email = document.getElementById("email");
+        let telephone = document.getElementById("telephone");
+        let password = document.getElementById("password");
+        let role = document.getElementById("role")
+    const activeToken = localStorage.getItem("jwtToken");
+    fetch(`https://beniraabrand.herokuapp.com/api/v1/users/${id}`,{
     method: 'GET',
     headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-}).then((data)=>{return data.json();
-}).then((values)=>{
-    console.log(values.data.blog)
-    document.getElementById("well").innerHTML = values.data.blog.map((values)=> 
-    `
-                             <table class="table">
-                                <thead>
-                                    <tr>
-                                        
-                                        <th>title</th>
-                                        <th>discription</th>
-                                        <th>image</th>
-                                        <th>date</th>
-                                        <th>update</th>
-                                        <th>delete</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        
-                                        <td data-label="Power">${values.title}</td>
-                                        <td data-label="Expiration">${values.desc}</td>
-                                        <td data-label="Value">${values.picture}</td>
-                                        <td data-label="Value">${values.createdAt}</td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-    `).join("")
-})
-
-</script>
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 
+  'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI'}})
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res.data.user);
+        firstname.value = res.data.user.firstname;
+        lastname.value = res.data.user.lastname;
+        email.value = res.data.user.email;
+        telephone.value = res.data.user.telephone;
+        role.value = res.data.user.role;
+        password.value = res.data.user.password;
+        let buttonupdate = document.getElementById("deleteUser");
+        buttonupdate.addEventListener("click", (e) => {
+          e.preventDefault();
+          fetch(`https://beniraabrand.herokuapp.com/api/v1/users/${id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': 
+              'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI',
+            },
+            body: JSON.stringify({
+              firstname: document.getElementById("firstname").value,
+              lastname: document.getElementById("lastname").value,
+              email: document.getElementById("email").value,
+              telephone: document.getElementById("telephone").value,
+              role: document.getElementById("role").value,
+              password: document.getElementById("password").value,
+            }),
+          });
+          alert("User Deleted successfully!");
+          location.href = "./Users.html#";
+        });
+      });
+           </script>

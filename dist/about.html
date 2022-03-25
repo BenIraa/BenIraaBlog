@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="assets/images/fav.jpg">
@@ -73,14 +74,7 @@
         <div class=" w-full p-6 md:w-3/6 ">
             <div class="card">
                 <img src="images/myprofilepic.jpg " alt="John" style="width:100%">
-                <h1>BenIraa</h1>
-                <p class="title">CEO & Founder, BenIraa</p>
-                <p>University Of Rwanda</p>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <p><button class="button-card">Contact</button></p>
+               
             </div>
 
 
@@ -146,6 +140,41 @@
 
     </div>
 
+    <footer  class="flex justify-center mt-32  px-4 text-gray-100 bg-gray-400">
+        <div class="container py-6">
+            <h1 class="text-center text-lg font-bold lg:text-xl">
+                
+            </h1>
+      
+            <div class="flex justify-center mt-6">
+                <div class="bg-white rounded-lg">
+                    <div class="flex flex-wrap justify-between md:flex-row">
+                      <form id="subscribe">
+                        <input type="email" class="m-1 p-2 appearance-none text-gray-700 text-sm focus:outline-none" name="email" required="" placeholder="Enter your email">
+                        <button class="w-full m-1 p-2 text-sm bg-gray-800 rounded-lg font-semibold uppercase lg:w-auto">subscribe</button>
+                      </form>
+                    </div>
+                </div>
+            </div>
+      
+            <hr class="h-px mt-6 bg-gray-700 border-none">
+      
+            <div class="flex flex-col items-center justify-between mt-6 md:flex-row">
+                <div>
+                    <a href="index.html" class="text-xl font-bold">BenIraa</a>
+                </div>
+                <div class="flex mt-4 md:m-0">
+                    <div class="-mx-4">
+                      <a href="/dist/about.html" class="px-4 text-sm">About</a>
+                      <a href="/dist/projects.html" class="px-4 text-sm">Blog</a>
+                      <a href="/dist/about.html" class="px-4 text-sm">News</a>
+                      <a href="/dist/contact.html" class="px-4 text-sm">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </footer>
+
 
 
 
@@ -181,3 +210,39 @@
         $('#navbar').toggle();
     });
 </script>
+
+
+<script>
+    const signup_Form = document.getElementById("subscribe")
+       signup_Form.addEventListener("submit", async (event) => {
+         event.preventDefault()
+         // CREATE USER
+         const body = {
+           email: signup_Form.email.value,
+         }
+         console.log(body)
+         await fetch("https://beniraabrand.herokuapp.com/api/v1/subscribers", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify(body),
+         })
+           .then((res) => res.json())
+           .then((json) => {
+             const { error, message, status } = json
+             console.log(error, message, status)
+            //  document.getElementById("error").innerHTML = message
+            //  document.getElementById("error").style.color = "red"
+           })
+         // CLEAR FORM
+         signup_Form.email.value = ""
+        Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Thank Your For Subscribing Our news Letter!',
+        showConfirmButton: false,
+        timer: 1500
+        })
+  
+       });
+       
+  </script>

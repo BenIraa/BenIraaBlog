@@ -124,7 +124,7 @@
 </html>
 
 <script>
-fetch('http://localhost:9000/api/v1/contactUs', { 
+fetch('https://beniraabrand.herokuapp.com/api/v1/contactUs', { 
     method: 'GET',
     headers: {
         'Accept': 'application/json',
@@ -140,32 +140,30 @@ fetch('http://localhost:9000/api/v1/contactUs', {
     <table class="table">
            <thead>
                <tr>
-                   <th>ID</th>
+                  
                    <th>FirstName</th>
                    <th>LastName</th>
                    <th>Email</th>
                    <th>Phone</th>
                    <th>Message</th>
-                   <th>Update</th>
                    <th>delete</th>
                </tr>
            </thead>
            <tbody>
                <tr>
-                   <td data-label="Contact ID">${values.id}</td>
+                   
                    <td data-label="Power">${values.firstname}</td>
                    <td data-label="Expiration">${values.lastname}</td>
                    <td data-label="Value">${values.email}</td>
                    <td data-label="Value">${values.telephone}</td>
                    <td data-label="Value">${values.contactUs}</td>
-                   <td data-lebel="trash"><button  ><i class="fa fa-pencil-square-o"></i></button></td>
                    <td data-lebel="trash"><button class="delete" ><i class="fa fa-trash"></i></button></td>
                </tr>
                
            </tbody>
        </table>  
    
-    `)
+    `).join("")
 })
 </script>
 
