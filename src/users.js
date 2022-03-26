@@ -2,11 +2,8 @@
 
 fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
         method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 
-      'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI'}})
+        headers: { "Content-Type": "application/json" },
+      })
       .then((data)=>{return data.json();
       }).then((values)=>{
          document.getElementById("well").innerHTML = values.map((values)=>

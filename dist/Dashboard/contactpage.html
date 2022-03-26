@@ -54,7 +54,7 @@
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
                     <li><a href="contactpage.html">Contact Page</a></li>
-                    <li><a href="">Sign out</a></li>
+                    <li><a href="" id="logoutBtn">Sign out</a></li>
                 </ul>
             </div>
         </div>
@@ -72,7 +72,7 @@
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
                     <li><a href="contactpage.html">Contact Page</a></li>
-                    <li><a href="">Sign out</a></li>
+                    <li><a href="" id="logoutBtn">Sign out</a></li>
                 </ul><br>
             </div>
             <br>
@@ -95,7 +95,7 @@
             </div>
         </div>
     </div>
-
+    <script src="../../src/auth.js"></script>
 
 
     
@@ -130,9 +130,12 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/contactUs', {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 
-        'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODExNTQwNCwiZXhwIjoxNjQ4MjAxODA0fQ.Ih-mYZuhtxLjiAWgIyFMcVkQ9yFvhio3aWO9M6Y_aUc'
+      'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI'
+        
     },
-}).then((data) =>{return data.json();
+    
+})
+.then((data) =>{return data.json();
 }).then((values) =>{
     console.log(values.data.contacts)
     document.getElementById("well").innerHTML = values.data.contacts.map((values)=>

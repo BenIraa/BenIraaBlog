@@ -593,7 +593,7 @@ span.psw {
   form.addEventListener('submit', async(e) => {
         e.preventDefault()
         try {
-            const resp = await fetch('https://beniraabrand.herokuapp.comapi/v1/users/login', {
+            const resp = await fetch('https://beniraabrand.herokuapp.com/api/v1/users/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -607,10 +607,10 @@ span.psw {
             const data = await resp.json()
             console.log(data.token)
             
-      // if(resp.status ==200){
+      
       //   let swal
       //   swal('success', data.message, 'success').then(() =>{
-      //     localStorage.setItem('token', 'Bearer' + data.token)
+       localStorage.setItem('token', 'Bearer ' + data.token)
       if(data.data.user.role==="admin"){
         console.log(true)
          location.href='./Dashboard/index.html';
@@ -621,19 +621,7 @@ span.psw {
       //   })
       // }
       
-// pop up messages
-      if (resp.status == 400) {
-        swal('error', data.message, 'error')
-      }
-      if (resp.status == 401) {
-        swal('error', data.user.message, 'error')
-      }
-      if(resp.status == 403){
-        swal('error', data.user.mesages, 'error')
-      }
-      if(resp.satus === 500) {
-        swal('error', data.user.message, 'error')
-      }
+
         
         } catch (error) { 
           console.log(error)

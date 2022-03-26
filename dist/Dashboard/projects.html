@@ -100,7 +100,7 @@
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
                     <li><a href="contactpage.html">Contact Page</a></li>
-                    <li><a href="">Sign out</a></li>
+                    <li><a href="" id="logoutBtn">Sign out</a></li>
                 </ul>
             </div>
         </div>
@@ -118,7 +118,7 @@
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
                     <li><a href="contactpage.html">Contact Page</a></li>
-                    <li><a href="">Sign out</a></li>
+                    <li><a href="" id="logoutBtn">Sign out</a></li>
                 </ul><br>
             </div>
             <br>
@@ -131,13 +131,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="well">
-                            <form class="form-inline"  enctype="multipart/form-data">
-                                <label for="firstname">title:</label>
-                                <input type="text" id="title" placeholder="Enter title" name="title">
-                                <label for="lastname">discription:</label>
-                                <input type="text" id="discription" placeholder="Enter discription" name="discription">
+                            <form id="addBlog" class="form-inline"  enctype="multipart/form-data">
+                                <label for="title">title:</label>
+                                <input type="text" id="title" placeholder="Enter title" required="" name="title">
+                                <label for="description">description:</label>
+                                <input type="text" id="desc" placeholder="Enter discription" required="" name="desc">
                                 <label for="picture">picture:</label>
-                                <input type="file" id="picture" name="picture">
+                                <input type="text" id="picture" required="" placeholder="Enter img Url" name="picture">
                                 
                                 
                                 <button id="addBlog" name="addBlog" type="submit">Add Projects</button>
@@ -156,7 +156,7 @@
             </div>
         </div>
     </div>
-
+    <script src="../../src/auth.js"></script>
 </body>
 
 </html>
@@ -193,7 +193,7 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
                                         <td data-label="Expiration">${values.desc}</td>
                                         <td data-label="Value">${values.picture}</td>
                                         <td data-label="Value">${values.createdAt}</td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
+                                        <td data-lebel="trash"><a href="updateBlog.html#${values._id}"><i class="fa fa-pencil-square-o"></i></a></td>
                                         <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
                                     </tr>
                                     
@@ -202,4 +202,40 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
     `).join("")
 })
 
+</script>
+
+<script>
+    const addBlog_form = document.getElementById("addBlog")
+    addBlog_form.addEventListener("submit", async (event) => {
+         event.preventDefault()
+         // CREATE USER
+         const body = {
+           title: addBlog_form.title.value,
+           desc: addBlog_form.desc.value,
+           picture: addBlog_form.picture.value,
+           
+
+         }
+         console.log(body)
+         await fetch("https://beniraabrand.herokuapp.com/api/v1/blogs", {
+           method: "POST",
+           headers: { 'Accept': 'application/json',
+                      'Content-Type': 'application/json',
+                    'Authorization': 
+                    'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI' },
+           body: JSON.stringify(body),
+         })
+           .then((res) => res.json())
+           .then((json) => {
+             const { error, message, status } = json
+             console.log(error, message, status)
+            //  document.getElementById("error").innerHTML = message
+            //  document.getElementById("error").style.color = "red"
+           })
+         // CLEAR FORM
+         addBlog_form.title.value = ""
+         addBlog_form.desc.value = ""
+         addBlog_form.picture.value = ""
+        
+       })
 </script>

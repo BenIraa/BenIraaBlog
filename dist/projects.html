@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
     <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="assets/images/fav.jpg">
@@ -277,13 +279,17 @@ a {
 
         </div>
     </section>
+<div id="cards" class="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+    <!--Card 1-->
+  </div>
+</div>
 
+</body>
+</html>
 
    
-    <section id="cards" class="cards-wrapper">
-    <!-- data fetched -->
-    </section>
-    <footer  class="flex justify-center mt-32  px-4 text-gray-100 bg-gray-400">
+  
+    <!-- <footer  class="flex justify-center mt-32  px-4 text-gray-100 bg-gray-400">
       <div class="container py-6">
           <h1 class="text-center text-lg font-bold lg:text-xl">
               Join 31+ other and never miss <br> out on new tips, tutorials, and more.
@@ -316,7 +322,7 @@ a {
               </div>
           </div>
       </div>
-    </footer>
+    </footer> -->
     
 
   </body>
@@ -335,19 +341,19 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs',{
   console.log(values.data.blog)
   document.getElementById("cards").innerHTML = values.data.blog.map((values)=>
   `
-  <div class="card-grid-space">
-        
-        <a class="card" href="" style="--bg-img: url(https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=1500&url=https://codetheweb.blog/assets/img/posts/html-syntax/cover.jpg)">
-          <div>
-            <h1>${values.title}</h1>
-            <p>${values.desc}</p>
-            <div class="date">${values.createdAt}</div>
-            <div class="tags">
-              <div class="tag">Read More</div>
-            </div>
-          </div>
-        </a>
+  <div class="rounded overflow-hidden shadow-lg">
+      <img class="w-full" src="${values.picture}" alt="Mountain">
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">${values.title}</div>
+        <p class="text-gray-700 text-base">
+          ${values.desc}
+        </p>
       </div>
+      <div class="px-6 pt-4 pb-2">
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Read More</span>
+        
+      </div>
+    </div>
         
   `
   ).join("")
@@ -365,7 +371,7 @@ const CreateBlog = async (event) => {
 
     console.log("hello", document.getElementById("picture").files[0])
     const response = await fetch(
-     "http://localhost:9000/api/v1/blogs",
+     "https://beniraabrand.herokuapp.com/api/v1/blogs",
       {
         method: "POST",
         headers: {
