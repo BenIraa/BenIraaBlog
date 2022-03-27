@@ -8,25 +8,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            clifford: '#da373d',
-          }
-        }
-      }
-    }
-  </script>
     <!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <style>
-        
         /* Style the form - display items horizontally */
 .form-inline {
   display: flex;
@@ -108,7 +95,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="index.html">Dashboard</a></li>
                     <li><a href="Users.html">Add User</a></li>
-                    <li><a href="Subscribers.html">Subscribers</a></li>
+                    <li><a href="">Hire Me</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
@@ -139,36 +126,26 @@
             <div class="col-sm-9">
                 <div class="well">
                     <h4 class="Font-mono">Dashboard Overview</h4>
-                    <p class="font-mono">Welcome BenIraa, View User and add users!</p>
+                    <p class="font-mono">Welcome BenIraa, View your project and add some or delete old!</p>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="well">
-                            <form id="addUser" class="form-inline">
-                                <label for="firstname">firstname:</label>
-                                <input type="text" id="firstname" placeholder="Enter firstname" required="" name="firstname">
-                                <label for="lastname">lastname:</label>
-                                <input type="text" id="lastname" placeholder="Enter lastname" required="" name="lastname">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" placeholder="Enter email" required="" name="email">
-                                <label for="telphone">telephone:</label>
-                                <input type="text" id="telephone" placeholder="Enter telephone" required="" name="telephone">
-                                <label for="role">Role:</label> 
-                                <input type="text" id="role" placeholder="Enter role " required="" name="role">
+                            <form  class="form-inline">
+                                <label for="title">title:</label>
+                                <input type="text" id="title" placeholder="Enter title" required="" name="title">
                                 
-                                <label for="password">Password:</label>
-                                <input type="password" id="password" placeholder="Enter password" required="" name="password">
                                 
-                                <button type="submit"  id="addUser" class="add_user_button">Add User</button>
+                                
+                                <button id="deleteBlog" name="deleteBtn" type="submit">Delete Blog</button>
                               </form>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div id="well"  class="well">
-                          
-                 
+                        <div id="well" class="well">
+                            <!-- data fetched -->
                         </div>
                     </div>
 
@@ -176,14 +153,91 @@
             </div>
         </div>
     </div>
-    
-<script src="../../src/auth.js"></script>
-<script defer  src="../../src/users.js"></script>
-
+    <script src="../../src/auth.js"></script>
 </body>
 
 </html>
+<script>
+
+fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+}).then((data)=>{return data.json();
+}).then((values)=>{
+    console.log(values.data.blog)
+    document.getElementById("well").innerHTML = values.data.blog.map((values)=> 
+    `
+                             <table class="table">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>title</th>
+                                        <th>discription</th>
+                                        <th>image</th>
+                                        <th>update</th>
+                                        <th>delete</th>
+                                  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        
+                                        <td data-label="Power">${values.title}</td>
+                                        <td data-label="Expiration">${values.desc}</td>
+                                        <td data-label="Value">${values.picture}</td>
+                                        <td data-lebel="trash"><a href="updateBlog.html#${values._id}"><i class="fa fa-pencil-square-o"></i></a></td>
+                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+    `).join("")
+})
+
+</script>
 
 <script>
-  
-</script>
+    const id = location.hash.slice(1);
+    console.log(id);
+       
+        let email = document.getElementById("email");
+       
+    const activeToken = localStorage.getItem("jwtToken");
+    fetch(`https://beniraabrand.herokuapp.com/api/v1/blogs/${id}`,{
+    method: 'GET',
+    headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+      
+    }})
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res.data.blog);
+        
+        title.value = res.data.blog.title;
+        
+        let deleteBtn = document.getElementById("deleteBlog");
+        deleteBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          fetch(`https://beniraabrand.herokuapp.com/api/v1/blogs/${id}`, {
+            method: "DELETE",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+
+              title: document.getElementById("title").value,
+              
+            }),
+          });
+          alert("Blog Deleted successfully!");
+          location.href = "./projects.html#";
+        });
+      });
+           </script>

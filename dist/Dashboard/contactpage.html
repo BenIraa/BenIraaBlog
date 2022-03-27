@@ -129,8 +129,7 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/contactUs', {
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 
-      'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI'
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
         
     },
     
@@ -160,7 +159,8 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/contactUs', {
                    <td data-label="Value">${values.email}</td>
                    <td data-label="Value">${values.telephone}</td>
                    <td data-label="Value">${values.contactUs}</td>
-                   <td data-lebel="trash"><button class="delete" ><i class="fa fa-trash"></i></button></td>
+                   <td data-lebel="trash"><a href="deleteContact.html#${values._id}"><i class="fa fa-trash"></i></a></td>
+                   
                </tr>
                
            </tbody>

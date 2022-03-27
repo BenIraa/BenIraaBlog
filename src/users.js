@@ -2,7 +2,11 @@
 
 fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
         method: 'GET',
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+         },
       })
       .then((data)=>{return data.json();
       }).then((values)=>{
@@ -60,15 +64,18 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
          console.log(body)
          await fetch("https://beniraabrand.herokuapp.com/api/v1/users/signup", {
            method: "POST",
-           headers: { "Content-Type": "application/json" },
+           headers: { 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
            body: JSON.stringify(body),
          })
            .then((res) => res.json())
            .then((json) => {
              const { error, message, status } = json
-             console.log(error, message, status)
-            //  document.getElementById("error").innerHTML = message
-            //  document.getElementById("error").style.color = "red"
+             alert(`User  added successfully`);
+             location.href = "./Users.html#";
            })
          // CLEAR FORM
          signup_Form.firstname.value = ""

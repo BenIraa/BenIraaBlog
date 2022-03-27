@@ -165,8 +165,9 @@
 fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
     method: 'GET',
     headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
     },
 }).then((data)=>{return data.json();
 }).then((values)=>{
@@ -180,10 +181,9 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
                                         <th>title</th>
                                         <th>discription</th>
                                         <th>image</th>
-                                        <th>date</th>
                                         <th>update</th>
                                         <th>delete</th>
-                                        <th></th>
+                                  
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -192,9 +192,9 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
                                         <td data-label="Power">${values.title}</td>
                                         <td data-label="Expiration">${values.desc}</td>
                                         <td data-label="Value">${values.picture}</td>
-                                        <td data-label="Value">${values.createdAt}</td>
                                         <td data-lebel="trash"><a href="updateBlog.html#${values._id}"><i class="fa fa-pencil-square-o"></i></a></td>
-                                        <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
+                                        <td data-lebel="trash"><a href="deleteContact.html#${values._id}"><i class="fa fa-trash"></i></a></td>
+                                        
                                     </tr>
                                     
                                 </tbody>
@@ -219,18 +219,16 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
          console.log(body)
          await fetch("https://beniraabrand.herokuapp.com/api/v1/blogs", {
            method: "POST",
-           headers: { 'Accept': 'application/json',
-                      'Content-Type': 'application/json',
-                    'Authorization': 
-                    'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI' },
+           headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+           },
            body: JSON.stringify(body),
          })
            .then((res) => res.json())
            .then((json) => {
              const { error, message, status } = json
-             console.log(error, message, status)
-            //  document.getElementById("error").innerHTML = message
-            //  document.getElementById("error").style.color = "red"
            })
          // CLEAR FORM
          addBlog_form.title.value = ""

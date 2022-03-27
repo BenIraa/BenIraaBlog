@@ -113,7 +113,7 @@
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
                     <li><a href="contactpage.html">Contact Page</a></li>
-                    <li><a href="" id="logoutBtn">Sign out</a></li>
+                    <li ><a href="" id="logoutBtn">Sign out</a></li>
                 </ul>
             </div>
         </div>
@@ -131,7 +131,11 @@
                     <li><a href="#">About Page</a></li>
                     <li><a href="#">Education Page</a></li>
                     <li><a href="contactpage.html">Contact Page</a></li>
-                    <li><a href="" id="logoutBtn">Sign out</a></li>
+                    <li ><a href="" id="logoutBtn">Sign out</a></li>
+
+                    
+
+
                 </ul><br>
             </div>
             <br>
@@ -140,6 +144,8 @@
                 <div class="well">
                     <h4 class="Font-mono">Dashboard Overview</h4>
                     <p class="font-mono">Welcome BenIraa, View Subscribers On News Letter</p>
+                    
+
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
@@ -157,14 +163,16 @@
 </body>
 </html>
 
+
 <script>
+  
+  
     fetch('https://beniraabrand.herokuapp.com/api/v1/subscribers',  {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': 
-      'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMmI0ZDIyODIwNDUyMzIxNDgyZTZmYSIsImlhdCI6MTY0ODEzMjQ2MiwiZXhwIjoxNjQ4MjE4ODYyfQ.nPhgAISyYezeHSBGEWqT1CsOKAqTwzLxV4LvoFEJKgI'}})
+          'Authorization': 'Bearer ' + localStorage.getItem('token')}})
       .then((data)=>{return data.json();
       }).then((values)=>{
          document.getElementById("well").innerHTML = values.data.sub.map((values)=>

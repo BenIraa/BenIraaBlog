@@ -140,7 +140,7 @@
                                 <input type="text" id="picture" required="" placeholder="Enter img Url" name="picture">
                                 
                                 
-                                <button id="updateBlog"  type="submit">Update Blog</button>
+                                <button id="updateBlog" name="buttonupdate"  type="submit">Update Blog</button>
                               </form>
                         </div>
                     </div>
@@ -166,11 +166,12 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
     method: 'GET',
     headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
     },
 }).then((data)=>{return data.json();
 }).then((values)=>{
-    console.log(values.data.blog)
+    // console.log(values.data.blog)
     document.getElementById("well").innerHTML = values.data.blog.map((values)=> 
     `
                              <table class="table">
@@ -180,7 +181,6 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
                                         <th>title</th>
                                         <th>discription</th>
                                         <th>image</th>
-                                        <th>date</th>
                                         <th>update</th>
                                         <th>delete</th>
                                         <th></th>
@@ -191,8 +191,7 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
                                         
                                         <td data-label="Power">${values.title}</td>
                                         <td data-label="Expiration">${values.desc}</td>
-                                        <td data-label="Value">${values.picture}</td>
-                                        <td data-label="Value">${values.createdAt}</td>
+                                        <td data-label="Value">${values.picture}</td>                                   
                                         <td data-lebel="trash"><button class="btn"><i class="fa fa-pencil-square-o"></i></button></td>
                                         <td data-lebel="trash"><button class="btn"><i class="fa fa-trash"></i></button></td>
                                     </tr>
@@ -211,30 +210,31 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
         let desc = document.getElementById("desc");
         let picture = document.getElementById("picture");
         
-    // const activeToken = localStorage.getItem("token");
-    const updateBlog = (token) => {
-        fetch(`https://beniraabrand.herokuapp.com/api/v1/blogs/${id}`,{
+    // const activeToken = localStorage.getItem('token');
+    fetch(`https://beniraabrand.herokuapp.com/api/v1/blogs/${id}`,{
     method: 'GET',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      }})
+      'Authorization': 'Bearer ' + localStorage.getItem('token')}
+  })
       .then((response) => response.json())
       .then((res) => {
         console.log(res.data.blog);
         title.value = res.data.blog.title;
         desc.value = res.data.blog.desc;
         picture.value = res.data.blog.picture;
-        
+
         let buttonupdate = document.getElementById("updateBlog");
         buttonupdate.addEventListener("click", (e) => {
           e.preventDefault();
           fetch(`https://beniraabrand.herokuapp.com/api/v1/blogs/${id}`, {
             method: "PATCH",
             headers: {
-              "Content-Type": "application/json",
-              'Authorization':  `Bearer ${token}`
-              
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+             
             },
             body: JSON.stringify({
               title: document.getElementById("title").value,
@@ -243,11 +243,8 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs', {
               
             }),
           });
-          alert("Data updated succesfully!");
+          alert("Blog updated succesfully!");
           location.href = "./projects.html#";
         });
       });
-
-    }
-    
            </script>

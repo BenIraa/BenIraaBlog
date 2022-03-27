@@ -201,35 +201,44 @@
 
          }
          console.log(body)
-         await fetch("http://localhost:9000/api/v1/contactUs", {
+         await fetch("https://beniraabrand.herokuapp.com/api/v1/contactUs", {
            method: "POST",
-           headers: { "Content-Type": "application/json" },
+           headers: { 
+            "Content-Type": "application/json"
+           },
            body: JSON.stringify(body),
          })
            .then((res) => res.json())
            .then((json) => {
              const { error, message, status } = json
-             console.log(error, message, status)
-             document.getElementById("error").innerHTML = message
-             document.getElementById("error").style.color = "red"
+             
+            
            })
          // CLEAR FORM
          signup_Form.firstname.value = ""
          signup_Form.lastname.value = ""
          signup_Form.email.value = ""
-         signup_Form.password.value = ""
          signup_Form.telephone.value = ""
          signup_Form.contactUs.value = ""
+
+         Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Thank Your For Contact Us!',
+        showConfirmButton: false,
+        timer: 1500
+        })
+         
        })
 </script>
 
 <script>
-    const signup_Form = document.getElementById("subscribe")
-       signup_Form.addEventListener("submit", async (event) => {
+    const sub_Form = document.getElementById("subscribe")
+    sub_Form.addEventListener("submit", async (event) => {
          event.preventDefault()
          // CREATE USER
          const body = {
-           email: signup_Form.email.value,
+           email: sub_Form.email.value,
          }
          console.log(body)
          await fetch("https://beniraabrand.herokuapp.com/api/v1/subscribers", {
@@ -245,7 +254,7 @@
             //  document.getElementById("error").style.color = "red"
            })
          // CLEAR FORM
-         signup_Form.email.value = ""
+         sub_Form.email.value = ""
         Swal.fire({
         position: 'top-end',
         icon: 'success',
