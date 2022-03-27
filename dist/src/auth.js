@@ -1,7 +1,7 @@
 function isLoginedIn()
 {
     
-    if(!localStorage.getItem("token").length)
+    if(!localStorage.getItem('token'))
     {
         location.href = '../index.html'
     }
@@ -15,10 +15,8 @@ isLoginedIn()
   
 }
 // console.log(document.getElementById("logoutBtn"))
-document.getElementById("logoutBtn").addEventListener("click",ev=> {
-
-  ev.preventDefault();
-  console.log('hello')
+document.getElementById("logoutBtn").addEventListener("click", e=> {
+  e.preventDefault();
   logout()
 
 })

@@ -1,5 +1,3 @@
-
-
 fetch('https://beniraabrand.herokuapp.com/api/v1/users',  {
         method: 'GET',
         headers: { 
