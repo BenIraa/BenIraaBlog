@@ -51,10 +51,8 @@
                     <li><a href="Users.html">Add User</a></li>
                     <li><a href="Subscribers.html">Subscribers</a></li>
                     <li><a href="projects.html">Projects</a></li>
-                    <li><a href="#">About Page</a></li>
-                    <li><a href="#">Education Page</a></li>
                     <li><a href="contactpage.html">Contact Page</a></li>
-                    <li><a href="" id="logoutBtn">Sign out</a></li>
+                    <li><a href="" id="smallDvc-logoutBtn">Sign out</a></li>
                 </ul>
             </div>
         </div>
@@ -69,8 +67,6 @@
                     <li><a href="Users.html">Add User</a></li>
                     <li><a href="Subscribers.html">Subscribers</a></li>
                     <li><a href="projects.html">Projects</a></li>
-                    <li><a href="#">About Page</a></li>
-                    <li><a href="#">Education Page</a></li>
                     <li><a href="contactpage.html">Contact Page</a></li>
                     <li><a href="" id="logoutBtn">Sign out</a></li>
                 </ul><br>
@@ -95,7 +91,36 @@
             </div>
         </div>
     </div>
-    <script src="/src/auth.js"></script>
+    <script>
+        function isLoginedIn()
+{
+    
+    if(!localStorage.getItem('token'))
+    {
+        location.href = '../index.html'
+    }
+}
+isLoginedIn()
+
+ function logout()
+{
+  localStorage.setItem('token', "");
+  window.location.reload()
+  
+}
+// console.log(document.getElementById("logoutBtn"))
+document.getElementById("logoutBtn").addEventListener("click", e=> {
+  e.preventDefault();
+  logout()
+
+})
+document.getElementById("smallDvc-logoutBtn").addEventListener("click", e=> {
+  e.preventDefault();
+  logout()
+
+})
+
+    </script>
 
 
     
