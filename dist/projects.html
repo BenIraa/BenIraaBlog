@@ -351,7 +351,8 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs',{
       </div>
       <div class="px-6 pt-4 pb-2">
         <div class="">
-        <a href="#" class=" text-lg text-blue-400">Read More</a>
+          <a href="viewBlog.html#${values._id}" class=" text-lg text-blue-400" >Read More</a>
+  
         </div>
       </div>
     </div>
@@ -360,7 +361,7 @@ fetch('https://beniraabrand.herokuapp.com/api/v1/blogs',{
   ).join("")
 })            
 </script>
-<script>
+<!-- <script>
 const CreateBlog = async (event) => {
   event.preventDefault()
 
@@ -391,7 +392,7 @@ const CreateBlog = async (event) => {
     console.log(error.stack)
   }
 }
-</script>
+</script> -->
 <script>
   const signup_Form = document.getElementById("subscribe")
      signup_Form.addEventListener("submit", async (event) => {
